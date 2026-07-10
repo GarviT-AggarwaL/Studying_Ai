@@ -1,0 +1,15 @@
+.venv/
+**/.venv/
+
+venv/
+**/venv/
+
+.env
+**/.env
+
+__pycache__/
+*.pyc
+
+.vscode/
+
+tempCodeRunnerFile.py
