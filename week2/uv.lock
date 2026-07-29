@@ -7,6 +7,7 @@ members = [
     "day1",
     "day2",
     "day3",
+    "day4",
     "week2",
 ]
 
@@ -77,6 +78,21 @@ requires-dist = [
 name = "day3"
 version = "0.1.0"
 source = { virtual = "day3" }
+dependencies = [
+    { name = "groq" },
+    { name = "python-dotenv" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "groq", specifier = ">=1.5.0" },
+    { name = "python-dotenv", specifier = ">=1.2.2" },
+]
+
+[[package]]
+name = "day4"
+version = "0.1.0"
+source = { virtual = "day4" }
 dependencies = [
     { name = "groq" },
     { name = "python-dotenv" },
