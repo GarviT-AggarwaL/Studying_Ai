@@ -5,23 +5,23 @@ from groq import Groq
 load_dotenv()
 my_api_key=os.getenv("GROQ_API_KEY")
 if not my_api_key:
-    raise ValueError("api error")
+    raise ValueError("API NOT FOUND!!")
 client=Groq(api_key=my_api_key)
 model="llama-3.3-70b-versatile"
 role="user"
-# 3 prompts
-prompt1="Hi"
-prompt2="Explain time travel in detail"
-prompt3="explain in 1000 word aiml and deep learning and reinforcement learning"
-
+prompt1="Explain me about tokens in one line."
+prompt2="Explain me Entrepreneurship in one paragraph."
+prompt3="Tell the MBA types and fields in MBA"
 prompts=[prompt1,prompt2,prompt3]
-
 for prompt in prompts:
     message={
-        "role":role,
-        "content":prompt
+       "role":role,
+       "content":prompt
     }
     messages=[message]
-    response=client.chat.completions.create(model=model,messages=messages,max_tokens=5000)
+    response=client.chat.completions.create(model=model,messages=messages,max_tokens=500)
     usage=response.usage
-    print(f"Prompt: {prompt} --> Your tokens:{usage.prompt_tokens } completion_token : {usage.completion_tokens} total tokens : {usage.total_tokens} Finish Reason : {response.choices[0].finish_reason}")
+    print(f"prompt : {prompt} --> Your Tokens : {usage.prompt_tokens} Completions Tokens : {usage.completion_tokens} Total Tokens : {usage.total_tokens} Finish Reason : {response.choices[0].finish_reason}")
+
+    #answer=response.choices[0].message.content
+    #print(answer)

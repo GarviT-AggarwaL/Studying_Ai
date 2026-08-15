@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from groq import Groq
+import time
 load_dotenv()
 from time import sleep
 my_api_key=os.getenv("GROQ_API_KEY")
@@ -46,58 +47,45 @@ def ask_llm(system_prompt,user_prompt):
     response=client.chat.completions.create(model=model,messages=messages)
     answer=response.choices[0].message.content
     return answer
-
-
-def step1_res_extract(RESUME):
-    #extract skills from resume
+def step1_res_extract():
+    #extract skilld from resume
     system_prompt="""
-    You are a professional HR assistant.EXtract the skills from the candidate resume provided.
-    Only return the skills no other information. Do not invent skills any info yourself.
-
+    You are a professional HR assistant. Extract the skills from candidate resume provided.Only return the skills no other information.
+    Do not invent any skills information on your own.
     """
     user_prompt=f"""
-    Extract the skills from resume
-    {RESUME}
-
+    Extract The skills from resume.{RESUME}
     """
     return ask_llm(system_prompt,user_prompt)
-
-
-
 def step2_jd_extract():
-    #extract skills from resume
+    #extract skilld from jd
     system_prompt="""
-    You are a professional HR assistant.EXtract the skills from the job description provided.
-    Only return the skills no other information. Do not invent skills any info yourself.
-
+    You are a professional HR assistant. Extract the skills from Job description provided.Only return the skills no other information.
+    Do not invent any skills information on your own.
     """
     user_prompt=f"""
-    Extract the skills from jd
-    {JD}
-
+    Extract The skills from Job description.{JD}
     """
     return ask_llm(system_prompt,user_prompt)
 
 def step3_match(candidate,jd):
+    #extract skilld from resume
     system_prompt="""
-    You are professional HR assistant, compare the skill of candidate resume and jd and give a final score between 1 to 100 also predict a short verdict whether candidate is good fit or not for the role.
-
-
+    You are a professional HR assistant.Compare the skills of candidate and skills required in Jd and provide a final score between 1 to 100 and provide a final verdict whether the candidate is fit for the job role or not.
     """
     user_prompt=f"""
-    comapre and match the skills
-    JD:
-    {jd}
-    Candidate:
-    {candidate}
+    Compare and match the skills.
+    JD:{jd}
+    Candidate:{candidate}
     """
     return ask_llm(system_prompt,user_prompt)
+candidate=step1_res_extract()
+print(candidate)
 
-
-candidate=step1_res_extract(RESUME)
-sleep(2)
+time.sleep(5)
 jd=step2_jd_extract()
-sleep(2)
+print(jd)
+time.sleep(5)
 score=step3_match(candidate,jd)
-sleep(2)
 print(score)
+time.sleep(5)
